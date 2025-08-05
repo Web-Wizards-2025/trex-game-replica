@@ -1,5 +1,38 @@
-canvas {
-    width: 50%;
-    height: 50%;
+/* Global styles */
+
+#game-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#game-box {
+    width: 600px;
+    height: 400px;
     border: 1px solid #000;
 }
+
+#player {
+    width: 50px;
+    height: 50px;
+    position: relative;
+    background-color: blue;
+    top: 350px;
+}
+
+#obstacle {
+    width: 30px;
+    height: 30px;
+    position: relative;
+    background-color: red;
+    top: 320px;
+    left: 570px;
+    /*animation: moveObstacle 2s linear infinite;*/
+}
+
+/*
+@keyframes moveObstacle {
+    from {left: 570px;}
+    to {left: -30px;}
+}*/

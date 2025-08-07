@@ -8,11 +8,8 @@ function jump(e) {
   // Preventing scrolling when pressing space or arrow up
   e.preventDefault();
 
-  // Converting the player class list to an array for easier inspection
-  const playerClasses = Array.from(player.classList);
-
   // Preventing animation resetting by spamming the jump button
-  if (playerClasses.includes("jump")) return;
+  if (Array.from(player.classList).includes("jump")) return;
 
   // Establishing valid inputs and impeding jumping if they aren't valid
   const isValidInput =

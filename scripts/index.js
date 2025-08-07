@@ -7,8 +7,9 @@ function playSound(soundPath) {
       `The sound path must be a string, provided audioPath ${soundPath} is a ${typeof soundPath}`
     );
   const sound = new Audio(soundPath);
-  sound.play();
+  sound.volume = 0.5;
   sound.currentTime = 0;
+  sound.play();
 }
 
 // Creating a function to make the player jump

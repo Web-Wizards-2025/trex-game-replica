@@ -37,6 +37,11 @@ const gameBox = document.getElementById("game-box");
 const startButton = document.getElementById("start-button");
 
 let gameRunning = false;
+let gameSpeed = 4000; // starting speed (in ms)
+let minGameSpeed = 1500; // how fast it can go
+let speedIncreaseRate = 150; // how much to reduce each interval
+let speedIncreaseInterval = 5000; // every 5 seconds
+let difficultyTimer;
 
 function createObstacle() {
   if (!gameRunning) return;
@@ -51,7 +56,7 @@ function createObstacle() {
   obstacle.appendChild(img);
   gameBox.appendChild(obstacle);
 
-  const speed = 3000 + Math.random() * 2000; // 3–5 seconds
+  const speed = gameSpeed;
   obstacle.style.animationDuration = `${speed}ms`;
 
   setTimeout(() => {
@@ -71,5 +76,18 @@ function startObstacleLoop() {
 startButton.addEventListener("click", () => {
   if (gameRunning) return;
   gameRunning = true;
+  gameSpeed = 4000; // reset speed if restarting
   startObstacleLoop();
+  increaseDifficulty(); // start ramping up difficulty
 });
+
+function increaseDifficulty() {
+  difficultyTimer = setInterval(() => {
+    if (gameSpeed > minGameSpeed) {
+      gameSpeed -= speedIncreaseRate;
+      console.log(`Increased speed! New obstacle speed: ${gameSpeed}ms`);
+    } else {
+      clearInterval(difficultyTimer);
+    }
+  }, speedIncreaseInterval);
+}

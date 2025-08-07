@@ -30,3 +30,46 @@ function jump(e) {
 ["keydown", "click"].forEach((event) => {
   document.addEventListener(event, jump);
 });
+
+// Obstacle Generating Loop
+// === Obstacle Generator ===
+const gameBox = document.getElementById("game-box");
+const startButton = document.getElementById("start-button");
+
+let gameRunning = false;
+
+function createObstacle() {
+  if (!gameRunning) return;
+
+  const obstacle = document.createElement("div");
+  obstacle.classList.add("obstacle");
+
+  const img = document.createElement("img");
+  img.src = "./assets/images/cactus.png";
+  img.alt = "Cactus obstacle";
+
+  obstacle.appendChild(img);
+  gameBox.appendChild(obstacle);
+
+  const speed = 3000 + Math.random() * 2000; // 3–5 seconds
+  obstacle.style.animationDuration = `${speed}ms`;
+
+  setTimeout(() => {
+    obstacle.remove();
+  }, speed);
+}
+
+function startObstacleLoop() {
+  if (!gameRunning) return;
+
+  createObstacle();
+
+  const nextSpawn = 1000 + Math.random() * 1500;
+  setTimeout(startObstacleLoop, nextSpawn);
+}
+
+startButton.addEventListener("click", () => {
+  if (gameRunning) return;
+  gameRunning = true;
+  startObstacleLoop();
+});

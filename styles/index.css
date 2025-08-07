@@ -34,6 +34,8 @@ header {
   height: 25rem;
   border: 0.0625rem solid #000;
   position: relative;
+
+  overflow: hidden;
 }
 
 #player {
@@ -50,19 +52,19 @@ header {
   height: 100%;
 }
 
-#obstacle {
+.obstacle {
   width: 1.875rem;
   height: 1.875rem;
   position: absolute;
-  background-color: red;
-  /* top: 20rem; */
-  /* left: 35.625rem; */
-  top: 23rem;
-  left: 35.5rem;
-  /*animation: moveObstacle 2s linear infinite;*/
+  bottom: 0;
+  left: 100%;
+  animation-name: moveLeft;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+  animation-duration: 4000ms;
 }
 
-#obstacle img {
+.obstacle img {
   width: 100%;
   height: 100%;
 }
@@ -94,11 +96,15 @@ header {
   }
 }
 
-/*
-@keyframes moveObstacle {
-    from {left: 35.625rem;}   // 570px / 16
-    to {left: -1.875rem;}     // -30px /
-}*/
+@keyframes moveLeft {
+  0% {
+    left: 100%;
+  }
+
+  100% {
+    left: -50px;
+  }
+}
 
 /* button styles */
 

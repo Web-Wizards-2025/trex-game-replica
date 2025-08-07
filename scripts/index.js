@@ -1,6 +1,16 @@
 // Selecting the player element in the DOM
 const player = document.getElementById("player");
 
+function playSound(soundPath) {
+  if (typeof soundPath !== "string")
+    throw new TypeError(
+      `The sound path must be a string, provided audioPath ${soundPath} is a ${typeof soundPath}`
+    );
+  const sound = new Audio(soundPath);
+  sound.play();
+  sound.currentTime = 0;
+}
+
 // Creating a function to make the player jump
 // The player can jump by pressing space or the arrow up like in the official game
 // It is also possible to jump by clicking anywhere on the screen, useful for mobile users
@@ -19,6 +29,10 @@ function jump(e) {
 
   // Adding the 'jump' class to the player
   player.classList.add("jump");
+  // Checking whether the "jump" class has been added to prevent sound from playing without the jump having occured
+  if (Array.from(player.classList).includes("jump"))
+    // Making the jump sound effect play every time the user jumps
+    playSound("../assets/audio/jump.mp3");
 
   // Removing the 'jump' class after 500 milliseconds (the same time as the animation duration in CSS in the "jump" class)
   setTimeout(() => {

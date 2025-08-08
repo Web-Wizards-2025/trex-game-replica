@@ -30,13 +30,17 @@ header {
 }
 
 #game-box {
-  width: 37.5rem;
+  display: flex;
   height: 25rem;
-  border: 0.0625rem solid #000;
+  padding-left: 40%;
+  padding-right: 40%;
+  border-bottom: 0.0625rem solid #000;
   position: relative;
-
   overflow: hidden;
+  justify-content: center;;
 }
+
+/* Player styles */
 
 #player {
   width: 3.125rem;
@@ -50,6 +54,8 @@ header {
   width: 100%;
   height: 100%;
 }
+
+/* Obstacle styles */
 
 .obstacle {
   width: 1.875rem;
@@ -123,6 +129,18 @@ header {
 
 /* button styles */
 
+#start-button {
+  border: none;
+  display: inline-block;
+  padding: 0;
+  background: none;
+}
+
+#start-button img {
+  width: 7.5rem;
+  height: 6.25rem;
+  display: block;
+}
 /* instructions styles */
 
 .row {
@@ -134,7 +152,7 @@ header {
   padding: 10%;
 }
 
-#spacekey{
+#spacebar{
   width: 100%;
 }
 

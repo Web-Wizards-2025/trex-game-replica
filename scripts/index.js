@@ -93,9 +93,7 @@ function increaseDifficulty() {
   }, speedIncreaseInterval);
 }
 
-// ... Tu código existente de jump(), listeners, createObstacle(), etc.
 
-// === Collision Detection ===
 function checkCollision() {
   const playerRect = player.getBoundingClientRect();
   const obstacles = document.querySelectorAll(".obstacle");
@@ -122,7 +120,6 @@ function endGame() {
 
   document.getElementById("game-over-message").classList.remove("hidden");
 
-  // Opcional: remover obstáculos
   document.querySelectorAll(".obstacle").forEach(o => o.remove());
 }
 

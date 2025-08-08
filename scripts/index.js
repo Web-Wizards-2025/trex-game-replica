@@ -30,3 +30,64 @@ function jump(e) {
 ["keydown", "click"].forEach((event) => {
   document.addEventListener(event, jump);
 });
+
+// Obstacle Generating Loop
+// === Obstacle Generator ===
+const gameBox = document.getElementById("game-box");
+const startButton = document.getElementById("start-button");
+
+let gameRunning = false;
+let gameSpeed = 4000; // starting speed (in ms)
+let minGameSpeed = 1500; // how fast it can go
+let speedIncreaseRate = 150; // how much to reduce each interval
+let speedIncreaseInterval = 5000; // every 5 seconds
+let difficultyTimer;
+
+function createObstacle() {
+  if (!gameRunning) return;
+
+  const obstacle = document.createElement("div");
+  obstacle.classList.add("obstacle");
+
+  const img = document.createElement("img");
+  img.src = "./assets/images/cactus.png";
+  img.alt = "Cactus obstacle";
+
+  obstacle.appendChild(img);
+  gameBox.appendChild(obstacle);
+
+  const speed = gameSpeed;
+  obstacle.style.animationDuration = `${speed}ms`;
+
+  setTimeout(() => {
+    obstacle.remove();
+  }, speed);
+}
+
+function startObstacleLoop() {
+  if (!gameRunning) return;
+
+  createObstacle();
+
+  const nextSpawn = 1000 + Math.random() * 1500;
+  setTimeout(startObstacleLoop, nextSpawn);
+}
+
+startButton.addEventListener("click", () => {
+  if (gameRunning) return;
+  gameRunning = true;
+  gameSpeed = 4000; // reset speed if restarting
+  startObstacleLoop();
+  increaseDifficulty(); // start ramping up difficulty
+});
+
+function increaseDifficulty() {
+  difficultyTimer = setInterval(() => {
+    if (gameSpeed > minGameSpeed) {
+      gameSpeed -= speedIncreaseRate;
+      console.log(`Increased speed! New obstacle speed: ${gameSpeed}ms`);
+    } else {
+      clearInterval(difficultyTimer);
+    }
+  }, speedIncreaseInterval);
+}

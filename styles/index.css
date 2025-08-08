@@ -41,9 +41,9 @@ header {
 #player {
   width: 3.125rem;
   height: 3.125rem;
-  top: 21.7rem;
   position: absolute;
   left: 0.5rem;
+  bottom: 0;
 }
 
 #player img {
@@ -70,7 +70,7 @@ header {
 
 /* Animations */
 .jump {
-  animation: jump 500ms linear;
+  animation: jump 600ms linear;
 }
 
 @keyframes jump {
@@ -79,19 +79,23 @@ header {
   }
 
   25% {
-    top: 16rem;
+    top: 14rem; /* going up */
   }
 
   50% {
-    top: 10rem;
+    top: 8rem; /* peak */
   }
 
-  75% {
-    top: 16rem;
+  65% {
+    top: 8rem; /* hold at peak */
+  }
+
+  85% {
+    top: 14rem; /* falling */
   }
 
   100% {
-    top: 21.7rem;
+    top: 21.7rem; /* back to ground */
   }
 }
 
@@ -119,4 +123,49 @@ footer {
   text-align: center;
   position: relative;
   width: 100%;
+}
+
+#game-over-message {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 30px;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 2rem;
+  z-index: 10;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+#game-over-message.hidden {
+  display: none;
+}
+
+#restart-button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  background: #ff5555;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+}
+
+#restart-button:hover {
+  background: #ff7777;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -60%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
 }

@@ -23,7 +23,7 @@ function jump(e) {
   // Removing the 'jump' class after 500 milliseconds (the same time as the animation duration in CSS in the "jump" class)
   setTimeout(() => {
     player.classList.remove("jump");
-  }, 500);
+  }, 600);
 }
 
 // Adding an event listener for both the 'keydown' and the "click" event
@@ -78,6 +78,7 @@ startButton.addEventListener("click", () => {
   gameRunning = true;
   gameSpeed = 4000; // reset speed if restarting
   startObstacleLoop();
+  startCollisionLoop();
   increaseDifficulty(); // start ramping up difficulty
 });
 
@@ -90,4 +91,57 @@ function increaseDifficulty() {
       clearInterval(difficultyTimer);
     }
   }, speedIncreaseInterval);
+}
+
+function checkCollision() {
+  const playerRect = player.getBoundingClientRect();
+  const obstacles = document.querySelectorAll(".obstacle");
+
+  // Shrink player's hitbox (grace area)
+  const shrink = 10;
+  const adjustedPlayerRect = {
+    left: playerRect.left + shrink,
+    right: playerRect.right - shrink,
+    top: playerRect.top + shrink,
+    bottom: playerRect.bottom - shrink,
+  };
+
+  for (const obstacle of obstacles) {
+    const obstacleRect = obstacle.getBoundingClientRect();
+
+    const isColliding =
+      adjustedPlayerRect.left < obstacleRect.right &&
+      adjustedPlayerRect.right > obstacleRect.left &&
+      adjustedPlayerRect.top < obstacleRect.bottom &&
+      adjustedPlayerRect.bottom > obstacleRect.top;
+
+    if (isColliding) {
+      endGame();
+      break;
+    }
+  }
+}
+
+function endGame() {
+  gameRunning = false;
+  clearInterval(difficultyTimer);
+
+  document.getElementById("game-over-message").classList.remove("hidden");
+
+  document.querySelectorAll(".obstacle").forEach((o) => o.remove());
+}
+
+document.getElementById("restart-button").addEventListener("click", () => {
+  document.getElementById("game-over-message").classList.add("hidden");
+  gameSpeed = 4000;
+  gameRunning = true;
+  startObstacleLoop();
+  startCollisionLoop();
+  increaseDifficulty();
+});
+
+function startCollisionLoop() {
+  if (!gameRunning) return;
+  checkCollision();
+  requestAnimationFrame(startCollisionLoop);
 }

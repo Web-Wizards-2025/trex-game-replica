@@ -46,12 +46,48 @@ let difficultyTimer;
 function createObstacle() {
   if (!gameRunning) return;
 
+  const obstacleTypes = [
+    {
+      name: "small",
+      width: "30px",
+      height: "30px",
+      src: "./assets/images/tumbleweed.png",
+      bottom: "0",
+    },
+    {
+      name: "medium",
+      width: "40px",
+      height: "50px",
+      src: "./assets/images/cactus.png",
+      bottom: "0",
+    },
+    {
+      name: "large",
+      width: "60px",
+      height: "70px",
+      src: "./assets/images/dead-tree.png",
+      bottom: "0",
+    },
+    {
+      name: "huge",
+      width: "110px",
+      height: "90px",
+      src: "./assets/images/shack.png",
+      bottom: "0",
+    },
+  ];
+
+  const type = obstacleTypes[Math.floor(Math.random() * obstacleTypes.length)];
   const obstacle = document.createElement("div");
-  obstacle.classList.add("obstacle");
+  obstacle.classList.add("obstacle", type.name);
 
   const img = document.createElement("img");
-  img.src = "./assets/images/cactus.png";
-  img.alt = "Cactus obstacle";
+  img.src = type.src;
+  img.alt = `${type.name} obstacle`;
+
+  obstacle.style.width = type.width;
+  obstacle.style.height = type.height;
+  obstacle.style.bottom = type.bottom;
 
   obstacle.appendChild(img);
   gameBox.appendChild(obstacle);

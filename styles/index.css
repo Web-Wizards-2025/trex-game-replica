@@ -63,6 +63,18 @@ header {
   animation-duration: 4000ms;
 }
 
+.obstacle.small {
+}
+
+.obstacle.medium {
+}
+
+.obstacle.large {
+}
+
+.obstacle.huge {
+}
+
 .obstacle img {
   width: 100%;
   height: 100%;

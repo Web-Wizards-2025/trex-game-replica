@@ -78,6 +78,7 @@ startButton.addEventListener("click", () => {
   gameRunning = true;
   gameSpeed = 4000; // reset speed if restarting
   startObstacleLoop();
+  startCollisionLoop();
   increaseDifficulty(); // start ramping up difficulty
 });
 
@@ -91,3 +92,53 @@ function increaseDifficulty() {
     }
   }, speedIncreaseInterval);
 }
+
+// ... Tu código existente de jump(), listeners, createObstacle(), etc.
+
+// === Collision Detection ===
+function checkCollision() {
+  const playerRect = player.getBoundingClientRect();
+  const obstacles = document.querySelectorAll(".obstacle");
+
+  for (const obstacle of obstacles) {
+    const obstacleRect = obstacle.getBoundingClientRect();
+
+    const isColliding =
+      playerRect.left < obstacleRect.right &&
+      playerRect.right > obstacleRect.left &&
+      playerRect.top < obstacleRect.bottom &&
+      playerRect.bottom > obstacleRect.top;
+
+    if (isColliding) {
+      endGame();
+      break;
+    }
+  }
+}
+
+function endGame() {
+  gameRunning = false;
+  clearInterval(difficultyTimer);
+
+  document.getElementById("game-over-message").classList.remove("hidden");
+
+  // Opcional: remover obstáculos
+  document.querySelectorAll(".obstacle").forEach(o => o.remove());
+}
+
+document.getElementById("restart-button").addEventListener("click", () => {
+  document.getElementById("game-over-message").classList.add("hidden");
+  gameSpeed = 4000;
+  gameRunning = true;
+  startObstacleLoop();
+  startCollisionLoop();
+  increaseDifficulty();
+});
+
+function startCollisionLoop() {
+  if (!gameRunning) return;
+  checkCollision();
+  requestAnimationFrame(startCollisionLoop);
+}
+
+

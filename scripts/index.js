@@ -66,14 +66,14 @@ function createObstacle() {
       width: "60px",
       height: "70px",
       src: "./assets/images/dead-tree.png",
-      bottom: "0",
+      bottom: "-2px",
     },
     {
       name: "huge",
       width: "110px",
       height: "90px",
       src: "./assets/images/shack.png",
-      bottom: "-5px",
+      bottom: "-6px",
     },
   ];
 

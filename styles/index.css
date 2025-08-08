@@ -82,7 +82,7 @@ header {
 
 /* Animations */
 .jump {
-  animation: jump 600ms linear;
+  animation: jump 700ms linear;
 }
 
 @keyframes jump {

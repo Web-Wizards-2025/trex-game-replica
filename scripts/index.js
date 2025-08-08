@@ -23,7 +23,7 @@ function jump(e) {
   // Removing the 'jump' class after 500 milliseconds (the same time as the animation duration in CSS in the "jump" class)
   setTimeout(() => {
     player.classList.remove("jump");
-  }, 600);
+  }, 700);
 }
 
 // Adding an event listener for both the 'keydown' and the "click" event
@@ -37,7 +37,7 @@ const gameBox = document.getElementById("game-box");
 const startButton = document.getElementById("start-button");
 
 let gameRunning = false;
-let gameSpeed = 4000; // starting speed (in ms)
+let gameSpeed = 3000; // starting speed (in ms)
 let minGameSpeed = 1500; // how fast it can go
 let speedIncreaseRate = 150; // how much to reduce each interval
 let speedIncreaseInterval = 5000; // every 5 seconds
@@ -112,7 +112,7 @@ function startObstacleLoop() {
 startButton.addEventListener("click", () => {
   if (gameRunning) return;
   gameRunning = true;
-  gameSpeed = 4000; // reset speed if restarting
+  gameSpeed = 3000; // reset speed if restarting
   startObstacleLoop();
   startCollisionLoop();
   increaseDifficulty(); // start ramping up difficulty
@@ -169,7 +169,7 @@ function endGame() {
 
 document.getElementById("restart-button").addEventListener("click", () => {
   document.getElementById("game-over-message").classList.add("hidden");
-  gameSpeed = 4000;
+  gameSpeed = 3000;
   gameRunning = true;
   startObstacleLoop();
   startCollisionLoop();

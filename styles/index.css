@@ -125,8 +125,25 @@ header {
 
 /* instructions styles */
 
-#spacebar {
-  width: 30%;
+.row {
+  display: flex;
+}
+
+.column {
+  flex: 33.3%;
+  padding: 10%;
+}
+
+#spacekey{
+  width: 100%;
+}
+
+#uparrow{
+  width: 100%;
+}
+
+#tapping{
+  width: 100%;
 }
 
 /* Footer styles */
@@ -137,6 +154,7 @@ footer {
   width: 100%;
 }
 
+/* Game over styles */
 #game-over-message {
   position: absolute;
   top: 50%;

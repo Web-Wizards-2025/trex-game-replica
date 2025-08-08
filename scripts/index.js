@@ -134,7 +134,7 @@ function checkCollision() {
   const obstacles = document.querySelectorAll(".obstacle");
 
   // Shrink player's hitbox (grace area)
-  const shrink = 10;
+  const shrink = 20;
   const adjustedPlayerRect = {
     left: playerRect.left + shrink,
     right: playerRect.right - shrink,

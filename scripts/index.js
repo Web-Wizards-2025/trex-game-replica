@@ -23,7 +23,7 @@ function jump(e) {
   // Removing the 'jump' class after 500 milliseconds (the same time as the animation duration in CSS in the "jump" class)
   setTimeout(() => {
     player.classList.remove("jump");
-  }, 600);
+  }, 700);
 }
 
 // Adding an event listener for both the 'keydown' and the "click" event
@@ -37,7 +37,7 @@ const gameBox = document.getElementById("game-box");
 const startButton = document.getElementById("start-button");
 
 let gameRunning = false;
-let gameSpeed = 4000; // starting speed (in ms)
+let gameSpeed = 3000; // starting speed (in ms)
 let minGameSpeed = 1500; // how fast it can go
 let speedIncreaseRate = 150; // how much to reduce each interval
 let speedIncreaseInterval = 5000; // every 5 seconds
@@ -46,12 +46,48 @@ let difficultyTimer;
 function createObstacle() {
   if (!gameRunning) return;
 
+  const obstacleTypes = [
+    {
+      name: "small",
+      width: "30px",
+      height: "30px",
+      src: "./assets/images/tumbleweed.png",
+      bottom: "0",
+    },
+    {
+      name: "medium",
+      width: "40px",
+      height: "50px",
+      src: "./assets/images/cactus.png",
+      bottom: "0",
+    },
+    {
+      name: "large",
+      width: "60px",
+      height: "70px",
+      src: "./assets/images/dead-tree.png",
+      bottom: "-2px",
+    },
+    {
+      name: "huge",
+      width: "110px",
+      height: "90px",
+      src: "./assets/images/shack.png",
+      bottom: "-6px",
+    },
+  ];
+
+  const type = obstacleTypes[Math.floor(Math.random() * obstacleTypes.length)];
   const obstacle = document.createElement("div");
-  obstacle.classList.add("obstacle");
+  obstacle.classList.add("obstacle", type.name);
 
   const img = document.createElement("img");
-  img.src = "./assets/images/cactus.png";
-  img.alt = "Cactus obstacle";
+  img.src = type.src;
+  img.alt = `${type.name} obstacle`;
+
+  obstacle.style.width = type.width;
+  obstacle.style.height = type.height;
+  obstacle.style.bottom = type.bottom;
 
   obstacle.appendChild(img);
   gameBox.appendChild(obstacle);
@@ -76,7 +112,7 @@ function startObstacleLoop() {
 startButton.addEventListener("click", () => {
   if (gameRunning) return;
   gameRunning = true;
-  gameSpeed = 4000; // reset speed if restarting
+  gameSpeed = 3000; // reset speed if restarting
   startObstacleLoop();
   startCollisionLoop();
   increaseDifficulty(); // start ramping up difficulty
@@ -98,7 +134,7 @@ function checkCollision() {
   const obstacles = document.querySelectorAll(".obstacle");
 
   // Shrink player's hitbox (grace area)
-  const shrink = 10;
+  const shrink = 20;
   const adjustedPlayerRect = {
     left: playerRect.left + shrink,
     right: playerRect.right - shrink,
@@ -133,7 +169,7 @@ function endGame() {
 
 document.getElementById("restart-button").addEventListener("click", () => {
   document.getElementById("game-over-message").classList.add("hidden");
-  gameSpeed = 4000;
+  gameSpeed = 3000;
   gameRunning = true;
   startObstacleLoop();
   startCollisionLoop();

@@ -73,7 +73,7 @@ function createObstacle() {
       width: "110px",
       height: "90px",
       src: "./assets/images/shack.png",
-      bottom: "0",
+      bottom: "-5px",
     },
   ];
 

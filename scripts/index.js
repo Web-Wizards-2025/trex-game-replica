@@ -23,7 +23,7 @@ function jump(e) {
   // Removing the 'jump' class after 500 milliseconds (the same time as the animation duration in CSS in the "jump" class)
   setTimeout(() => {
     player.classList.remove("jump");
-  }, 500);
+  }, 600);
 }
 
 // Adding an event listener for both the 'keydown' and the "click" event
@@ -93,19 +93,27 @@ function increaseDifficulty() {
   }, speedIncreaseInterval);
 }
 
-
 function checkCollision() {
   const playerRect = player.getBoundingClientRect();
   const obstacles = document.querySelectorAll(".obstacle");
+
+  // Shrink player's hitbox (grace area)
+  const shrink = 10;
+  const adjustedPlayerRect = {
+    left: playerRect.left + shrink,
+    right: playerRect.right - shrink,
+    top: playerRect.top + shrink,
+    bottom: playerRect.bottom - shrink,
+  };
 
   for (const obstacle of obstacles) {
     const obstacleRect = obstacle.getBoundingClientRect();
 
     const isColliding =
-      playerRect.left < obstacleRect.right &&
-      playerRect.right > obstacleRect.left &&
-      playerRect.top < obstacleRect.bottom &&
-      playerRect.bottom > obstacleRect.top;
+      adjustedPlayerRect.left < obstacleRect.right &&
+      adjustedPlayerRect.right > obstacleRect.left &&
+      adjustedPlayerRect.top < obstacleRect.bottom &&
+      adjustedPlayerRect.bottom > obstacleRect.top;
 
     if (isColliding) {
       endGame();
@@ -120,7 +128,7 @@ function endGame() {
 
   document.getElementById("game-over-message").classList.remove("hidden");
 
-  document.querySelectorAll(".obstacle").forEach(o => o.remove());
+  document.querySelectorAll(".obstacle").forEach((o) => o.remove());
 }
 
 document.getElementById("restart-button").addEventListener("click", () => {
@@ -137,5 +145,3 @@ function startCollisionLoop() {
   checkCollision();
   requestAnimationFrame(startCollisionLoop);
 }
-
-

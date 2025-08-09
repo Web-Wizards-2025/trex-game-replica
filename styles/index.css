@@ -148,19 +148,24 @@ header {
 }
 
 .column {
-  flex: 33.3%;
-  padding: 10%;
+  flex: 25%;
+  padding: 1rem;
+  padding-top: 3rem;
 }
 
 #spacebar{
-  width: 100%;
+  width: 70%;
 }
 
 #uparrow{
-  width: 100%;
+  width: 60%;
 }
 
 #tapping{
+  width: 50%;
+}
+
+#howtojump-icon{
   width: 100%;
 }
 

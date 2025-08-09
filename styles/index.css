@@ -40,7 +40,7 @@ header {
   overflow: hidden;
   justify-content: center;
   background-image: url(../assets/images/game-background.png);
-  background-size: contain;
+  background-size: fill;
   background-position: center;
 }
 
@@ -243,6 +243,7 @@ footer {
   #game-box {
     padding-left: 45%;
     padding-right: 45%;
+    background-size: contain;
   }
 
   #logo {
@@ -271,6 +272,10 @@ footer {
 }
 
 @media (min-width: 1025px) {
+
+  #game-box {
+    background-size: contain;
+  }
 
   #logo {
     width: 20%;

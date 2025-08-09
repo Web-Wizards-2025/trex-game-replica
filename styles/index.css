@@ -31,19 +31,6 @@ header {
   z-index: 10;
 }
 
-#grass {
-  position: relative;
-  margin-left: 8.5%;
-  margin-right: 8.5%;
-  width: 83%;
-  bottom: -2.7rem;
-  height: 3rem;
-  background-image: url(../assets/images/grass.png);
-  background-repeat: repeat-x;
-  background-size: contain;
-  z-index: 10;
-}
-
 #game-container {
   display: flex;
   flex-direction: column;
@@ -66,8 +53,6 @@ header {
   background-position: center;
 }
 
-/* Player styles */
-
 #player {
   width: 3.125rem;
   height: 3.125rem;
@@ -80,8 +65,6 @@ header {
   width: 100%;
   height: 100%;
 }
-
-/* Obstacle styles */
 
 .obstacle {
   width: 1.875rem;
@@ -168,37 +151,6 @@ header {
 
 #spacebar {
   width: 100%;
-/* instructions styles */
-
-.row {
-  display: flex;
-  padding-left: 15%;
-  padding-right: 15%;
-  justify-content: center;
-}
-
-.column {
-  flex: 33.3%;
-  padding: 1rem;
-  padding-top: 0rem;
-}
-
-#spacebar{
-  width: 100%;
-}
-
-#uparrow{
-  width: 100%;
-}
-
-#tapping{
-  width: 100%;
-}
-
-#howtojump-icon{
-  padding-top: 8rem;
-  width: 60%;
-
 }
 
 #uparrow {
@@ -228,7 +180,6 @@ footer {
   margin-top: 5rem;
 }
 
-/* Game over styles */
 #game-over-message {
   position: absolute;
   top: 50%;
@@ -314,7 +265,6 @@ footer {
 }
 
 @media (min-width: 1025px) {
- 
   #game-box {
     background-size: contain;
   }
@@ -355,7 +305,6 @@ footer {
     padding-left: 35%;
     padding-right: 35%;
     justify-content: center;
-
   }
 
   footer {

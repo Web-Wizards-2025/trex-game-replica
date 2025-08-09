@@ -14,6 +14,7 @@
         <img src="./assets/images/logo.png" alt="Jumping Game Logo" id="logo">
     </header>
     <main>
+        <div id="grass"></div>
         <div id="game-container">
             <div id="game-box">
                 <div id="player">
@@ -21,8 +22,21 @@
                 </div>
             </div>
             <p>Score: 0</p>
-            <button id="start-button">Start Game</button>
-            <img src="./assets/images/spacebar.png" alt="spacebar instructions" id="spacebar">
+            <button id="start-button">
+                <img src="./assets/images/startbutton.png" alt="Start Game">
+            </button>
+            <img src="./assets/images/howtojump.png" alt="how to jump icon" id="howtojump-icon">
+            <div class="row">
+                <div class="column">
+                    <img src="./assets/images/spacebar.png" alt="spacebar instructions" id="spacebar">
+                </div>
+                <div class="column">
+                    <img src="./assets/images/uparrow.png" alt="up-arrow instructions" id="uparrow">
+                </div>
+                <div class="column">
+                    <img src="./assets/images/tapping.png" alt="human finger tapping phone instructions" id="tapping">
+                </div>
+            </div>
         </div>
         <div id="game-over-message" class="hidden">
             <p>💀 Game Over 💀</p>

@@ -15,12 +15,25 @@ header {
 }
 
 #logo {
-  width: 20%;
+  width: 40%;
   height: 5%;
   margin: 20px auto;
 }
 
 /* game styles */
+
+#grass {
+  position: relative;
+  margin-left: 8.5%;
+  margin-right: 8.5%;
+  width: 83%;
+  bottom: -2.7rem;
+  height: 3rem;
+  background-image: url(../assets/images/grass.png);
+  background-repeat: repeat-x;
+  background-size: contain;
+  z-index: 10;
+}
 
 #game-container {
   display: flex;
@@ -30,13 +43,21 @@ header {
 }
 
 #game-box {
-  width: 37.5rem;
+  display: flex;
   height: 25rem;
-  border: 0.0625rem solid #000;
+  padding-left: 40%;
+  padding-right: 40%;
+  border: 0.45rem outset rgb(241, 184, 25);
+  border-style: outset;
   position: relative;
-
   overflow: hidden;
+  justify-content: center;
+  background-image: url(../assets/images/game-background.png);
+  background-size: fill;
+  background-position: center;
 }
+
+/* Player styles */
 
 #player {
   width: 3.125rem;
@@ -51,6 +72,8 @@ header {
   height: 100%;
 }
 
+/* Obstacle styles */
+
 .obstacle {
   width: 1.875rem;
   height: 1.875rem;
@@ -61,18 +84,6 @@ header {
   animation-timing-function: linear;
   animation-fill-mode: forwards;
   animation-duration: 4000ms;
-}
-
-.obstacle.small {
-}
-
-.obstacle.medium {
-}
-
-.obstacle.large {
-}
-
-.obstacle.huge {
 }
 
 .obstacle img {
@@ -123,20 +134,67 @@ header {
 
 /* button styles */
 
+#start-button {
+  border: none;
+  display: inline-block;
+  padding: 0;
+  background: none;
+}
+
+#start-button img {
+  width: 7.5rem;
+  height: 6.25rem;
+  display: block;
+}
 /* instructions styles */
 
-#spacebar {
-  width: 30%;
+.row {
+  display: flex;
+  padding-left: 15%;
+  padding-right: 15%;
+  justify-content: center;
+}
+
+.column {
+  flex: 33.3%;
+  padding: 1rem;
+  padding-top: 0rem;
+}
+
+#spacebar{
+  width: 100%;
+}
+
+#uparrow{
+  width: 100%;
+}
+
+#tapping{
+  width: 100%;
+}
+
+#howtojump-icon{
+  padding-top: 8rem;
+  width: 60%;
 }
 
 /* Footer styles */
 
 footer {
+  display: flex;
+  justify-content: center;
   text-align: center;
+  align-items: center;
   position: relative;
-  width: 100%;
+  width: 60%;
+  padding: 0.25rem;
+  margin: 1rem auto;
+  border: 0.5rem outset rgb(241, 184, 25);
+  background: #ffe9a2;
+  margin-top: 5rem;
 }
 
+/* Game over styles */
 #game-over-message {
   position: absolute;
   top: 50%;
@@ -179,5 +237,93 @@ footer {
   to {
     opacity: 1;
     transform: translate(-50%, -50%);
+  }
+}
+
+@media (min-width: 601px) and (max-width: 1024px) {
+  #game-box {
+    padding-left: 45%;
+    padding-right: 45%;
+    background-size: contain;
+  }
+
+  #logo {
+    width: 30%;
+    height: auto;
+  }
+
+  #grass {
+    position: relative;
+    margin-left: 4%;
+    margin-right: 4%;
+    width: 92%;
+  }
+
+  #player {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  #start-button img {
+    width: 8rem;
+    height: auto;
+  }
+
+  #game-over-message {
+    font-size: 1.25rem;
+    padding: 1rem;
+  }
+
+  footer {
+    width: 40%;
+  }
+}
+
+@media (min-width: 1025px) {
+
+  #game-box {
+    background-size: contain;
+  }
+
+  #logo {
+    width: 20%;
+    height: auto;
+  }
+
+  #grass {
+    position: relative;
+    margin-left: 9.5%;
+    margin-right: 9.5%;
+    width: 81%;
+  }
+  #player {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  #start-button img {
+    width: 10rem;
+    height: auto;
+  }
+
+  #game-over-message {
+    font-size: 1.5rem;
+    padding: 1.25rem;
+  }
+
+  #howtojump-icon{
+    padding-top: 8rem;
+    width: 40%;
+  }
+
+  .row {
+  display: flex;
+  padding-left: 35%;
+  padding-right: 35%;
+  justify-content: center;
+  }
+
+  footer {
+    width: 20%;
   }
 }

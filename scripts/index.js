@@ -58,9 +58,9 @@ function stopSound(soundElement = new Audio("")) {
 }
 
 // Audio files
-const backgroundMusic = new Audio("../assets/audio/background-music.mp3");
-const jumpSFX = new Audio("../assets/audio/jump.mp3");
-const gameOverSFX = new Audio("../assets/audio/game-over.mp3");
+const backgroundMusic = new Audio("./assets/audio/background-music.mp3");
+const jumpSFX = new Audio("./assets/audio/jump.mp3");
+const gameOverSFX = new Audio("./assets/audio/game-over.mp3");
 
 // Creating a function to make the player jump
 // The player can jump by pressing space or the arrow up like in the official game

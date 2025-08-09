@@ -1,12 +1,69 @@
 // Selecting the player element in the DOM
 const player = document.getElementById("player");
 
+function playSound(
+  soundElement = new Audio(""),
+  soundVolume = 0.5,
+  isPlayingInLoop = false
+) {
+  if (typeof soundElement !== "object")
+    throw new TypeError(
+      `sound path must be an audio element, provided soundElement "${soundElement}" is a ${typeof soundElement}`
+    );
+
+  if (typeof soundVolume !== "number")
+    throw new TypeError(
+      `The soundVolume parameter must be a number between 0 and 1, provided soundVolume "${soundVolume}" is a ${typeof soundVolume}`
+    );
+
+  if (typeof soundVolume === "number" && (soundVolume < 0 || soundVolume > 1))
+    throw new TypeError(
+      `The soundVolume parameter must be a number between 0 and 1, provided soundVolume "${soundVolume}" is a number but it is not between 0 and 1`
+    );
+
+  if (typeof isPlayingInLoop !== "boolean")
+    throw new TypeError(
+      `The isPlayingInLoop parameter must be a boolean, provided isPlayingInLoop "${isPlayingInLoop}" is a ${typeof isPlayingInLoop}`
+    );
+
+  const playSoundOnce = function () {
+    soundElement.volume = soundVolume;
+    soundElement.currentTime = 0;
+    soundElement.play();
+  };
+
+  if (isPlayingInLoop) {
+    playSoundOnce();
+    soundElement.addEventListener("ended", playSoundOnce);
+    if (soundElement.paused)
+      soundElement.removeEventListener("ended", playSoundOnce);
+  } else {
+    playSoundOnce();
+  }
+}
+
+function stopSound(soundElement = new Audio("")) {
+  if (typeof soundElement !== "object")
+    throw new TypeError(
+      `soundElement must be an audio element, provided soundElement "${soundElement}" is a ${typeof soundElement}`
+    );
+  soundElement.pause();
+  soundElement.currentTime = 0;
+}
+
+// Audio files
+const backgroundMusic = new Audio("../assets/audio/background-music.mp3");
+const jumpSFX = new Audio("../assets/audio/jump.mp3");
+const gameOverSFX = new Audio("../assets/audio/game-over.mp3");
+
 // Creating a function to make the player jump
 // The player can jump by pressing space or the arrow up like in the official game
 // It is also possible to jump by clicking anywhere on the screen, useful for mobile users
 function jump(e) {
   // Preventing scrolling when pressing space or arrow up
   e.preventDefault();
+
+  if (!gameRunning) return;
 
   // Preventing animation resetting by spamming the jump button
   if (Array.from(player.classList).includes("jump")) return;
@@ -19,6 +76,10 @@ function jump(e) {
 
   // Adding the 'jump' class to the player
   player.classList.add("jump");
+  // Checking whether the "jump" class has been added to prevent sound from playing without the jump having occured
+  if (Array.from(player.classList).includes("jump"))
+    // Making the jump sound effect play every time the user jumps
+    playSound(jumpSFX);
 
   // Removing the 'jump' class after 500 milliseconds (the same time as the animation duration in CSS in the "jump" class)
   setTimeout(() => {
@@ -116,6 +177,7 @@ startButton.addEventListener("click", () => {
   startObstacleLoop();
   startCollisionLoop();
   increaseDifficulty(); // start ramping up difficulty
+  if (gameRunning) playSound(backgroundMusic, 0.5, true);
 });
 
 function increaseDifficulty() {
@@ -162,6 +224,9 @@ function endGame() {
   gameRunning = false;
   clearInterval(difficultyTimer);
 
+  stopSound(backgroundMusic);
+  playSound(gameOverSFX, 0.3);
+
   document.getElementById("game-over-message").classList.remove("hidden");
 
   document.querySelectorAll(".obstacle").forEach((o) => o.remove());
@@ -174,6 +239,8 @@ document.getElementById("restart-button").addEventListener("click", () => {
   startObstacleLoop();
   startCollisionLoop();
   increaseDifficulty();
+  if (gameRunning) playSound(backgroundMusic, 0.5, true);
+  if (!gameOverSFX.paused) stopSound(gameOverSFX);
 });
 
 function startCollisionLoop() {

@@ -1,15 +1,54 @@
 // Selecting the player element in the DOM
 const player = document.getElementById("player");
 
-function playSound(soundPath) {
-  if (typeof soundPath !== "string")
+function playSound(
+  soundElement = new Audio(""),
+  soundVolume = 0.5,
+  isPlayingInLoop = false
+) {
+  if (typeof soundElement !== "object")
     throw new TypeError(
-      `The sound path must be a string, provided audioPath ${soundPath} is a ${typeof soundPath}`
+      `sound path must be an audio element, provided soundElement "${soundElement}" is a ${typeof soundElement}`
     );
-  const sound = new Audio(soundPath);
-  sound.volume = 0.5;
-  sound.currentTime = 0;
-  sound.play();
+
+  if (typeof soundVolume !== "number")
+    throw new TypeError(
+      `The soundVolume parameter must be a number between 0 and 1, provided soundVolume "${soundVolume}" is a ${typeof soundVolume}`
+    );
+
+  if (typeof soundVolume === "number" && (soundVolume < 0 || soundVolume > 1))
+    throw new TypeError(
+      `The soundVolume parameter must be a number between 0 and 1, provided soundVolume "${soundVolume}" is a number but it is not between 0 and 1`
+    );
+
+  if (typeof isPlayingInLoop !== "boolean")
+    throw new TypeError(
+      `The isPlayingInLoop parameter must be a boolean, provided isPlayingInLoop "${isPlayingInLoop}" is a ${typeof isPlayingInLoop}`
+    );
+
+  const playSoundOnce = function () {
+    soundElement.volume = soundVolume;
+    soundElement.currentTime = 0;
+    soundElement.play();
+  };
+
+  if (isPlayingInLoop) {
+    playSoundOnce();
+    soundElement.addEventListener("ended", playSoundOnce);
+    if (soundElement.paused)
+      soundElement.removeEventListener("ended", playSoundOnce);
+  } else {
+    playSoundOnce();
+  }
+}
+
+function stopSound(soundElement = new Audio("")) {
+  if (typeof soundElement !== "object")
+    throw new TypeError(
+      `soundElement must be an audio element, provided soundElement "${soundElement}" is a ${typeof soundElement}`
+    );
+  soundElement.pause();
+  soundElement.currentTime = 0;
 }
 
 // Creating a function to make the player jump
@@ -28,12 +67,14 @@ function jump(e) {
 
   if (!isValidInput) return;
 
+  const jumpSound = new Audio("../assets/audio/jump.mp3");
+
   // Adding the 'jump' class to the player
   player.classList.add("jump");
   // Checking whether the "jump" class has been added to prevent sound from playing without the jump having occured
   if (Array.from(player.classList).includes("jump"))
     // Making the jump sound effect play every time the user jumps
-    playSound("../assets/audio/jump.mp3");
+    playSound(jumpSound);
 
   // Removing the 'jump' class after 500 milliseconds (the same time as the animation duration in CSS in the "jump" class)
   setTimeout(() => {

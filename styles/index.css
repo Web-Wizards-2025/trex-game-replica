@@ -180,9 +180,17 @@ header {
 /* Footer styles */
 
 footer {
+  display: flex;
+  justify-content: center;
   text-align: center;
+  align-items: center;
   position: relative;
-  width: 100%;
+  width: 60%;
+  padding: 0.25rem;
+  margin: 1rem auto;
+  border: 0.5rem outset rgb(241, 184, 25);
+  background: #ffe9a2;
+  margin-top: 5rem;
 }
 
 /* Game over styles */
@@ -256,6 +264,10 @@ footer {
     font-size: 1.25rem;
     padding: 1rem;
   }
+
+  footer {
+    width: 40%;
+  }
 }
 
 @media (min-width: 1025px) {
@@ -290,5 +302,9 @@ footer {
   padding-left: 35%;
   padding-right: 35%;
   justify-content: center;
+  }
+
+  footer {
+    width: 20%;
   }
 }

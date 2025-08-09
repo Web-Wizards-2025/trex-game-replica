@@ -145,28 +145,32 @@ header {
 
 .row {
   display: flex;
+  padding-left: 30%;
+  padding-right: 30%;
+  justify-content: center;
 }
 
 .column {
-  flex: 25%;
+  flex: 33.3%;
   padding: 1rem;
-  padding-top: 3rem;
+  padding-top: 0rem;
 }
 
 #spacebar{
-  width: 70%;
+  width: 100%;
 }
 
 #uparrow{
-  width: 60%;
+  width: 100%;
 }
 
 #tapping{
-  width: 50%;
+  width: 100%;
 }
 
 #howtojump-icon{
-  width: 100%;
+  padding-top: 4rem;
+  width: 45%;
 }
 
 /* Footer styles */

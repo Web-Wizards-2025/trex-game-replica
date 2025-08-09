@@ -1,5 +1,11 @@
 // Selecting the player element in the DOM
 const player = document.getElementById("player");
+const scoreDisplay = document.getElementById("score-display");
+let score = 0;
+
+function updateScore() {
+  scoreDisplay.textContent = `Score: ${score}`;
+}
 
 function playSound(
   soundElement = new Audio(""),
@@ -173,7 +179,10 @@ function startObstacleLoop() {
 startButton.addEventListener("click", () => {
   if (gameRunning) return;
   gameRunning = true;
+  startButton.disabled = true;
   gameSpeed = 3000; // reset speed if restarting
+  score = 0;
+  updateScore();
   startObstacleLoop();
   startCollisionLoop();
   increaseDifficulty(); // start ramping up difficulty
@@ -207,6 +216,21 @@ function checkCollision() {
   for (const obstacle of obstacles) {
     const obstacleRect = obstacle.getBoundingClientRect();
 
+    // Calculate the obstacle's horizontal center point
+    const obstacleCenter =
+      obstacleRect.left + (obstacleRect.right - obstacleRect.left) / 2;
+
+    // The score now increases when the obstacle's right edge passes the player's center
+    if (
+      !obstacle.dataset.scoreIncreased &&
+      obstacleCenter < adjustedPlayerRect.left
+    ) {
+      score += 1;
+      // Mark the obstacle so the score doesn't increase again
+      obstacle.dataset.scoreIncreased = true;
+      updateScore();
+    }
+
     const isColliding =
       adjustedPlayerRect.left < obstacleRect.right &&
       adjustedPlayerRect.right > obstacleRect.left &&
@@ -236,6 +260,8 @@ document.getElementById("restart-button").addEventListener("click", () => {
   document.getElementById("game-over-message").classList.add("hidden");
   gameSpeed = 3000;
   gameRunning = true;
+  score = 0;
+  updateScore();
   startObstacleLoop();
   startCollisionLoop();
   increaseDifficulty();

@@ -34,11 +34,14 @@ header {
   height: 25rem;
   padding-left: 40%;
   padding-right: 40%;
-/*  border-bottom: 0.0625rem solid #000; */
+  border: 0.5rem outset rgb(241, 184, 25);
   border-style: outset;
   position: relative;
   overflow: hidden;
-  justify-content: center;;
+  justify-content: center;
+  background-image: url(../assets/images/game-background.png);
+  background-size: contain;
+  background-position: center;
 }
 
 /* Player styles */
@@ -279,13 +282,13 @@ footer {
 
   #howtojump-icon{
     padding-top: 8rem;
-    width: 50%;
+    width: 40%;
   }
 
   .row {
   display: flex;
-  padding-left: 30%;
-  padding-right: 30%;
+  padding-left: 35%;
+  padding-right: 35%;
   justify-content: center;
   }
 }
